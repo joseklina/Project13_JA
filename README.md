@@ -25,47 +25,59 @@ Load balancing ensures that the application will be highly available, in additio
 Load balancer also help mitigate DOS attacks.  Advantages of using a jumpbox is that you are fanning In through a single node, which forces all traffic
 throught that single node. Easier to monitor one connection than multiple.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+Integrating an ELK server allows users to easily monitor system logs for any  the vulnerable VMs 
+ What does Filebeat watch for? Filebeat  helps generate and organize log files to send to Logstash and Elasticsearch. It collects file system logs  including
+those that have changed. 
+ What does Metricbeat record? Metricbeat periodically collect metrics from the operating system and from services running on the server.
 
 The configuration details of each machine may be found below.
 _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Jump Box | Gateway  | 10.0.0.4   | Linux            |
+| Web1     | DVWA     | 10.0.0.7   | Linux            |
+| Web2     | DVWA     | 10.0.0.8   | Linux            |
+| Web3     | DVWA     | 10.0.0.10  | Linux            |
+| DVWA_VM3 | DVWA     | 10.1.0.4   | Linux            |
+| DVWA_VM4 | DVWA     | 10.1.0.5   | Linux            |
+| ELK-VM1  | ELK      | 10.2.0.5   | Linux            |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet.
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the Jump box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+ Public IP : 108.21.59.191 
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by Jump box.
+ THe jump box can also access the ELK machine. The IP address is 10.0.0.4
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Jump Box |  Yes                | 108.21.59.191        |
+| Web 1    |  No                 | 1.0.0.4              |
+| Web 2    |  No                 | 1.0.0.4              |
+| Web 3    |  No                 | 1.0.0.4              |
+| DVWA_VM3 |  No                 | 1.0.0.4              |
+| DVWA_VM4 |  No                 | 1.0.0.4              |
+| ELK-VM1  |  Yes                | 108.21.59.191        |
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because it's quicker and easier to setup and/or destroy. 
+
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Download .deb
+- Install using dpkg 
+- Copy Configuration files
+- Run command filebeat modules enable system
+- Run command filebeat setup
+- Run command service filebeat start 
+
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
